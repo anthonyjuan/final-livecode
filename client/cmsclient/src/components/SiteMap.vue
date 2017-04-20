@@ -10,10 +10,11 @@
             <el-row>
               <el-col :span="14">
                 <p style="font-size:22px;">{{ article.title }}</p>
+                <p style="font-size:20px;">{{ article.content }}</p>
               </el-col>
               <el-col :span="6" :offset="4">
-                <el-button type="info" v-if="statusLogin">Edit</el-button>
-                <el-button type="danger" v-if="statusLogin">Delete</el-button>
+                <el-button type="info" v-if="statusLogin" @click="showEditDialog(article)">Edit</el-button>
+                <el-button type="danger" v-if="statusLogin" @click="deletePost(article._id)">Delete</el-button>
               </el-col>
             </el-row>
             <el-row>
@@ -21,14 +22,58 @@
             </el-row>
         </el-card>
       </el-col>
+
+      <el-dialog title="Details" v-model="dialogTableVisible">
+        <el-row>
+          <el-col :span="14">
+            <el-form label-position="top" label-width="100px">
+              <el-form-item label="Title">
+                <el-input v-model="article.title"></el-input>
+              </el-form-item>
+              <el-form-item label="Content">
+                <el-input v-model="article.content"></el-input>
+              </el-form-item>
+              <el-button type="info" @click="editArticle(article._id)">Edit</el-button>
+            </el-form>
+          </el-col>
+        </el-row>
+
+        <br>
+      </el-dialog>
     </el-row>
 
 </template>
 
 <script>
-export default {
-  methods: {
 
+export default {
+  data() {
+    return{
+      dialogTableVisible : false
+    }
+  },
+  methods: {
+    deletePost(id) {
+      // console.log(id);
+      this.$alert('Are You Sure?!', 'Confirmation', {
+         confirmButtonText: 'OK',
+         callback: action => {
+           if(action == 'confirm') {
+             this.$store.dispatch('deleteArticle',id)
+
+           }
+         }
+       });
+
+    },
+    editArticle() {
+      this.$store.dispatch('editArticle')
+      this.dialogTableVisible = false
+    },
+    showEditDialog(article) {
+      this.$store.dispatch('addArticleDialog',article)
+      this.dialogTableVisible = true
+    }
   },
   computed: {
     articles() {
@@ -36,6 +81,9 @@ export default {
     },
     statusLogin() {
       return this.$store.getters.statusLogin
+    },
+    article() {
+      return this.$store.getters.article
     }
   },
   mounted() {

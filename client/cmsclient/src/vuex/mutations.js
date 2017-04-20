@@ -6,7 +6,8 @@ export const state = {
   article: {
     title:'',
     content:''
-  }
+  },
+  dialogTableVisible: false
 
 }
 
@@ -26,6 +27,18 @@ export const mutations = {
     } else {
       state.statusLogin = false
     }
+  },
+  DELETE_ARTICLE(state,payload) {
+    let index = state.articles.findIndex(val => val._id == payload)
+    state.articles.splice(index,1)
+  },
+  ADD_ARTICLE_DIALOG(state, payload) {
+    state.article = payload
+  },
+  EDIT_ARTICLE(state) {
+    let index = state.articles.findIndex(val => val._id == state.article._id)
+    state.articles.splice(index,1)
+    state.articles.push(state.article)
   }
 
 }
@@ -47,6 +60,8 @@ export const actions = {
          .then(function(res) {
            if(res.data.success){
              commit('SIGN_IN', res.data)
+           } else {
+             alert('username or password is wrong!')
            }
          })
   },
@@ -72,6 +87,32 @@ export const actions = {
          window.location.href="/#/"
        }
     })
+  },
+  deleteArticle({commit},id) {
+    axios.delete(`http://localhost:3000/api/articles/${id}`,{headers: {'token': window.localStorage.getItem('token')}})
+         .then(function(res) {
+           if(res.data.success) {
+             commit('DELETE_ARTICLE',id)
+           } else {
+             alert(res.data)
+           }
+         })
+  },
+  addArticleDialog({commit}, data) {
+    commit('ADD_ARTICLE_DIALOG', data)
+  },
+  editArticle({commit}) {
+    axios.put(`http://localhost:3000/api/articles/${state.article._id}`,{
+      title: state.article.title,
+      content: state.article.content
+    },{headers: {'token': window.localStorage.getItem('token')}})
+    .then(function(res){
+      if(res.data == false){
+        alert('you have no right')
+      } else {
+        commit('EDIT_ARTICLE')
+      }
+    })
   }
 }
 
@@ -84,5 +125,8 @@ export const getters = {
   },
   article(state) {
     return state.article
+  },
+  dialogTableVisible(state) {
+    return state.dialogTableVisible
   }
 }

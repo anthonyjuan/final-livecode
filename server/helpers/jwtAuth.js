@@ -30,7 +30,7 @@ module.exports = {
             if(decoded.id == result.author) {
                 next()
             } else {
-                res.send('you have no right!')
+                res.send(false)
             }
           }
         })
