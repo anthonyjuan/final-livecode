@@ -21,10 +21,10 @@ routes.get('/api/articles', article.getAllArticle)
 routes.get('/api/articles/:id', article.getOneArticle)
 
 //put
-routes.put('/api/articles/:id', help.verify,article.editArticle)
+routes.put('/api/articles/:id', help.verify, help.verifyAction,article.editArticle)
 
 //delete
-routes.delete('/api/articles/:id', help.verify,article.deleteArticle)
+routes.delete('/api/articles/:id', help.verify, help.verifyAction,article.deleteArticle)
 
 
 module.exports = routes;
