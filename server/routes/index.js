@@ -1,5 +1,6 @@
 let routes = require('express').Router()
 let user = require('../controllers/userControls')
+let article = require('../controllers/articleControls')
 
 routes.get('/', (req, res) => {
   res.send('tod')
@@ -9,10 +10,11 @@ routes.get('/', (req, res) => {
 //login
 routes.post('/login', user.login)
 
-// create users
+// create
 routes.post('/api/users', user.signUp)
+routes.post
 
-// get users
+// get
 routes.get('/api/users', user.getAllUser)
 
 
