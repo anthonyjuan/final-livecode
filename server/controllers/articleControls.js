@@ -17,6 +17,12 @@ module.exports = {
     })
   },
   getAllArticle: function(req, res) {
-
+    Article.find(function(err, articles) {
+      if(!err) {
+        res.send({success:true, data:articles})
+      } else {
+        res.send({success:false, msg:err})
+      }
+    })
   }
 };
