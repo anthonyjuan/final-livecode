@@ -28,12 +28,12 @@
           <el-col :span="14">
             <el-form label-position="top" label-width="100px">
               <el-form-item label="Title">
-                <el-input v-model="article.title"></el-input>
+                <el-input v-model="articleDialog.title"></el-input>
               </el-form-item>
               <el-form-item label="Content">
-                <el-input v-model="article.content"></el-input>
+                <el-input v-model="articleDialog.content"></el-input>
               </el-form-item>
-              <el-button type="info" @click="editArticle(article._id)">Edit</el-button>
+              <el-button type="info" @click="editArticle(articleDialog.id)">Edit</el-button>
             </el-form>
           </el-col>
         </el-row>
@@ -49,7 +49,12 @@
 export default {
   data() {
     return{
-      dialogTableVisible : false
+      dialogTableVisible : false,
+      articleDialog: {
+        id: '',
+        title:'',
+        content:''
+      },
     }
   },
   methods: {
@@ -67,11 +72,13 @@ export default {
 
     },
     editArticle() {
-      this.$store.dispatch('editArticle')
+      this.$store.dispatch('editArticle',this.articleDialog)
       this.dialogTableVisible = false
     },
     showEditDialog(article) {
-      this.$store.dispatch('addArticleDialog',article)
+      this.articleDialog.id = article._id
+      this.articleDialog.title = article.title
+      this.articleDialog.content = article.content
       this.dialogTableVisible = true
     }
   },
@@ -81,9 +88,6 @@ export default {
     },
     statusLogin() {
       return this.$store.getters.statusLogin
-    },
-    article() {
-      return this.$store.getters.article
     }
   },
   mounted() {

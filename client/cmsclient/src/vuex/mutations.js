@@ -3,10 +3,6 @@ import axios from 'axios'
 export const state = {
   statusLogin: false,
   articles: [],
-  article: {
-    title:'',
-    content:''
-  },
   dialogTableVisible: false
 
 }
@@ -35,10 +31,10 @@ export const mutations = {
   ADD_ARTICLE_DIALOG(state, payload) {
     state.article = payload
   },
-  EDIT_ARTICLE(state) {
-    let index = state.articles.findIndex(val => val._id == state.article._id)
+  EDIT_ARTICLE(state, payload) {
+    let index = state.articles.findIndex(val => val._id == payload.id)
     state.articles.splice(index,1)
-    state.articles.push(state.article)
+    state.articles.push(payload)
   }
 
 }
@@ -101,16 +97,16 @@ export const actions = {
   addArticleDialog({commit}, data) {
     commit('ADD_ARTICLE_DIALOG', data)
   },
-  editArticle({commit}) {
-    axios.put(`http://localhost:3000/api/articles/${state.article._id}`,{
-      title: state.article.title,
-      content: state.article.content
+  editArticle({commit}, article) {
+    axios.put(`http://localhost:3000/api/articles/${article.id}`,{
+      title: article.title,
+      content: article.content
     },{headers: {'token': window.localStorage.getItem('token')}})
     .then(function(res){
       if(res.data == false){
         alert('you have no right')
       } else {
-        commit('EDIT_ARTICLE')
+        commit('EDIT_ARTICLE',article)
       }
     })
   }
