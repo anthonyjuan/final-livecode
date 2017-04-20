@@ -20,5 +20,8 @@ routes.get('/api/users', user.getAllUser)
 routes.get('/api/articles', article.getAllArticle)
 routes.get('/api/articles/:id', article.getOneArticle)
 
+//put
+routes.put('/api/articles/:id', help.verify,article.editArticle)
+
 
 module.exports = routes;
