@@ -14,6 +14,12 @@ export default {
     statusLogin() {
       return this.$store.getters.statusLogin
     }
+  },
+  methods: {
+    logout() {
+      window.localStorage.clear()
+      window.location.reload()
+    }
   }
 }
 </script>

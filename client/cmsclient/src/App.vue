@@ -12,6 +12,9 @@ export default {
   components:{
     AppNav
   },
+  mounted() {
+    this.$store.dispatch('ifLogin')
+  },
   name: 'app'
 }
 </script>
