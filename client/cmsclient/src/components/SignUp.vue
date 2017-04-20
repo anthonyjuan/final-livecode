@@ -44,6 +44,17 @@ export default {
       }
       this.$store.dispatch('signUp', newUser)
     }
+
+  },
+  computed: {
+    statusLogin() {
+      return this.$store.getters.statusLogin
+    }
+  },
+  mounted() {
+    if(statusLogin) {
+      location.href = "/#/"
+    }
   }
 }
 </script>

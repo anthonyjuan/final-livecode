@@ -3,7 +3,11 @@ import axios from 'axios'
 export const state = {
   statusLogin: false,
   articles: [],
-  dialogTableVisible: false
+  dialogTableVisible: false,
+  article: {
+    title:'',
+    content:''
+  }
 
 }
 

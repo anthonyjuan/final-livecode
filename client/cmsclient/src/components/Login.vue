@@ -33,6 +33,16 @@ export default {
       }
       this.$store.dispatch('signIn',user)
     }
+  },
+  computed: {
+    statusLogin() {
+      return this.$store.getters.statusLogin
+    }
+  },
+  mounted() {
+    if(statusLogin) {
+      location.href = "/#/"
+    }
   }
 }
 </script>
