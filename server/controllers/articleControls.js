@@ -17,13 +17,15 @@ module.exports = {
     })
   },
   getAllArticle: function(req, res) {
-    Article.find(function(err, articles) {
-      if(!err) {
-        res.send({success:true, data:articles})
-      } else {
-        res.send({success:false, msg:err})
-      }
-    })
+    Article.find()
+           .populate('author')
+           .exec(function(err, articles) {
+             if(!err) {
+               res.send({success:true, data:articles})
+             } else {
+               res.send({success:false, msg:err})
+             }
+           })
   },
   getOneArticle: function(req, res) {
     Article.findOne({_id: req.params.id}, function(err, article) {

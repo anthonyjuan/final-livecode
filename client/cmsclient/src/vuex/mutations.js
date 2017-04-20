@@ -2,7 +2,11 @@ import axios from 'axios'
 
 export const state = {
   statusLogin: false,
-  articles: []
+  articles: [],
+  article: {
+    title:'',
+    content:''
+  }
 
 }
 
@@ -44,6 +48,15 @@ export const actions = {
              commit('SIGN_IN', res.data)
            }
          })
+  },
+  signUp({commit},dataUserLog) {
+    let self = this
+    axios.post('http://localhost:3000/api/users', dataUserLog)
+         .then(function(res) {
+           if(res.data.success) {
+             alert(res.data.msg)
+           }
+         })
   }
 }
 
@@ -53,5 +66,8 @@ export const getters = {
   },
   articles(state) {
     return state.articles
+  },
+  article(state) {
+    return state.article
   }
 }
