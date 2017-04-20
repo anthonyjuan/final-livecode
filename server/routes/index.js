@@ -18,6 +18,7 @@ routes.post('/api/articles' ,help.verify,article.postArticle)
 // get
 routes.get('/api/users', user.getAllUser)
 routes.get('/api/articles', article.getAllArticle)
+routes.get('/api/articles/:id', article.getOneArticle)
 
 
 module.exports = routes;

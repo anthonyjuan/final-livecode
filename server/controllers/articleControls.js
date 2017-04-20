@@ -24,5 +24,26 @@ module.exports = {
         res.send({success:false, msg:err})
       }
     })
+  },
+  getOneArticle: function(req, res) {
+    Article.findOne({_id: req.params.id}, function(err, article) {
+      if(!err) {
+        res.send({success:true, data:article})
+      } else {
+        res.send({success:false, data:err})
+      }
+    })
+  },
+  editArticle: function(req, res) {
+    Article.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      content: req.body.content
+    }, function(err) {
+      if(!err) {
+        res.send({success:true, msg:'update success'})
+      } else {
+        res.send({success: false, msg:err})
+      }
+    })
   }
 };
