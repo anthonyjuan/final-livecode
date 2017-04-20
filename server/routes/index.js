@@ -1,6 +1,7 @@
 let routes = require('express').Router()
 let user = require('../controllers/userControls')
 let article = require('../controllers/articleControls')
+let help = require('../helpers/jwtAuth')
 
 routes.get('/', (req, res) => {
   res.send('tod')
@@ -12,7 +13,7 @@ routes.post('/login', user.login)
 
 // create
 routes.post('/api/users', user.signUp)
-routes.post
+routes.post('/api/articles' ,help.verify,article.postArticle)
 
 // get
 routes.get('/api/users', user.getAllUser)
