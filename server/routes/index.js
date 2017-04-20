@@ -23,5 +23,8 @@ routes.get('/api/articles/:id', article.getOneArticle)
 //put
 routes.put('/api/articles/:id', help.verify,article.editArticle)
 
+//delete
+routes.delete('/api/articles/:id', help.verify,article.deleteArticle)
+
 
 module.exports = routes;

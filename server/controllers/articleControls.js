@@ -46,5 +46,15 @@ module.exports = {
       }
     })
   },
+  deleteArticle: function(req, res) {
+    Article.findByIdAndRemove(req.params.id,
+      function(err) {
+        if(!err) {
+          res.send({success:true, msg:'delete success'})
+        } else {
+          res.send({success: false, msg:err})
+        }
+      })
+  }
 
 };
