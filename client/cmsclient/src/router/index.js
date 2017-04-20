@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import SiteMap from '@/components/SiteMap'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
+import AddForm from '@/components/AddForm'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/add',
+      name: 'AddForm',
+      component: AddForm
     }
 
   ]

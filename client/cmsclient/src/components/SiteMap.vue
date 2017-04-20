@@ -2,7 +2,7 @@
     <el-row>
       <el-col :span="16" :offset="2">
         <h1>All Articles</h1>
-        <el-button type="info" v-if="statusLogin">Post article</el-button>
+        <router-link to="/add"><el-button type="info" v-if="statusLogin">Post article</el-button></router-link>
         <router-link to="/login"><el-button type="info" v-if="statusLogin == false">Post article</el-button></router-link>
         <br>
         <br>
@@ -17,7 +17,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <p style="font-size:12px;">posted by: <b>{{ article.author.name }}</b></p>
+              <p style="font-size:12px;">posted by: <b>{{ article.author.username }}</b></p>
             </el-row>
         </el-card>
       </el-col>

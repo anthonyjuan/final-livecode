@@ -16,6 +16,7 @@ export const mutations = {
   },
   SIGN_IN(state, payload) {
     window.localStorage.setItem('token', payload.token)
+    window.localStorage.setItem('id', payload.id)
     window.location.reload()
   },
   IF_LOGIN(state) {
@@ -57,6 +58,20 @@ export const actions = {
              alert(res.data.msg)
            }
          })
+  },
+  postArticle({commit}) {
+    axios.post('http://localhost:3000/api/articles', {
+      title: state.article.title,
+      content: state.article.content,
+      author: window.localStorage.id
+    },
+    {headers: {'token': window.localStorage.getItem('token')}}
+    )
+    .then(function(res) {
+       if(res.data.success) {
+         window.location.href="/#/"
+       }
+    })
   }
 }
 
